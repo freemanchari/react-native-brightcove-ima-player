@@ -116,6 +116,13 @@ public class BrightcoveIMAPlayerView extends RelativeLayout implements Lifecycle
     eventEmitter.on(EventType.READY_TO_PLAY, new EventListener() {
       @Override
       public void processEvent(Event e) {
+        if(!disableDefaultControl){
+          mediaController.show();
+          mediaController.setShowHideTimeout(4000);
+        }else {
+          mediaController.hide();
+          mediaController.setShowHideTimeout(1);
+        }
         WritableMap event = Arguments.createMap();
         ReactContext reactContext = (ReactContext) BrightcoveIMAPlayerView.this.getContext();
         reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(BrightcoveIMAPlayerView.this.getId(), BrightcoveIMAPlayerViewManager.EVENT_READY, event);
